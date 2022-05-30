@@ -4,9 +4,7 @@ const User = require("./models").user;
 const Project = require("./models").project;
 const Tool = require("./models").tool;
 const Material = require("./models").material;
-const ProjectMaterial = require("./models").projectMaterial;
-const ProjectTool = require("./models").projectTool;
-const UserProject = require("./models").userProject;
+
 const app = express();
 const PORT = 4000;
 
