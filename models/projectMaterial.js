@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       materialId: DataTypes.INTEGER,
       projectId: DataTypes.INTEGER,
-      amount: DataTypes.INTEGER,
+      materialAmount: DataTypes.INTEGER,
     },
     {
       sequelize,

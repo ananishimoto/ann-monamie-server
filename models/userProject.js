@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define relations here
       userProject.belongsTo(models.user, { foreignKey: "userId" });
       userProject.belongsTo(models.project, { foreignKey: "projectId" });
     }
@@ -18,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       projectId: DataTypes.INTEGER,
       timer: DataTypes.TIME,
-      status: DataTypes.STRING,
+      projectStatus: DataTypes.STRING,
       bookmarkedLine: DataTypes.INTEGER,
     },
     {

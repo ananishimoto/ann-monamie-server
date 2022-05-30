@@ -26,7 +26,7 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      amount: {
+      materialAmount: {
         type: Sequelize.INTEGER,
       },
       createdAt: {

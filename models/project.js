@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       project.belongsToMany(models.user, {
         through: "userProject",
         foreignKey: "projectId",
@@ -28,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
       },
       image: DataTypes.STRING,
       pattern: DataTypes.TEXT,

@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       tool.belongsToMany(models.project, {
         through: "projectTool",
         foreignKey: "toolId",
@@ -17,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   tool.init(
     {
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       description: DataTypes.TEXT,
     },
     {

@@ -26,7 +26,7 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      amount: {
+      toolAmount: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -39,6 +39,7 @@ module.exports = {
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("projectTools");
   },

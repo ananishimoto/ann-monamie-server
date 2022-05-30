@@ -29,7 +29,7 @@ module.exports = {
       timer: {
         type: Sequelize.TIME,
       },
-      status: {
+      projectStatus: {
         type: Sequelize.STRING,
       },
       bookmarkedLine: {
