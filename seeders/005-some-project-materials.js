@@ -6,7 +6,7 @@ module.exports = {
       "projectMaterials",
       [
         {
-          projectMaterialId: 1,
+          id: 1,
           materialId: 1,
           projectId: 1,
           materialAmount: 3,
@@ -14,7 +14,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          projectMaterialId: 2,
+          id: 2,
           materialId: 2,
           projectId: 2,
           materialAmount: 4,

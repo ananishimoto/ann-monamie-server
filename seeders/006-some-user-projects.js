@@ -6,7 +6,7 @@ module.exports = {
       "userProjects",
       [
         {
-          userProjectId: 1,
+          id: 1,
           userId: 1,
           projectId: 1,
           timer: "02:00",
@@ -16,7 +16,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          userProjectId: 2,
+          id: 2,
           userId: 1,
           projectId: 2,
           timer: "01:15",

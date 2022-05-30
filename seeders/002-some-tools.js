@@ -6,21 +6,21 @@ module.exports = {
       "tools",
       [
         {
-          toolId: 1,
+          id: 1,
           name: "Scissor",
           description: "golden bird version",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          toolId: 2,
+          id: 2,
           name: "Crochet Neddle 2.5mm",
           description: "Tulip red",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          toolId: 3,
+          id: 3,
           name: "Tunisian Neddle 8mm",
           description: "Bamboo needle",
           createdAt: new Date(),
