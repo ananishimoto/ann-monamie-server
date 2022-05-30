@@ -16,8 +16,14 @@ app.get("/test", async (request, response) => {
       include: [
         {
           model: Project,
-          include: [{ model: Tool }],
-          include: [{ model: Material }],
+          include: [
+            {
+              model: Tool,
+            },
+            {
+              model: Material,
+            },
+          ],
         },
       ],
     });
