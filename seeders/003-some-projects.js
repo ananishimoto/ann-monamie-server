@@ -23,6 +23,15 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          id: 3,
+          name: "Duck Friends",
+          image:
+            "https://i.etsystatic.com/10279552/r/il/2d37bd/2263634754/il_570xN.2263634754_98yf.jpg",
+          pattern: "This should be the pattern",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

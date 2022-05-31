@@ -27,7 +27,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       timer: {
-        type: Sequelize.TIME,
+        type: Sequelize.INTEGER,
       },
       projectStatus: {
         type: Sequelize.STRING,

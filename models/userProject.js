@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       projectId: DataTypes.INTEGER,
-      timer: DataTypes.TIME,
+      timer: DataTypes.INTEGER,
       projectStatus: DataTypes.STRING,
       bookmarkedLine: DataTypes.INTEGER,
     },
