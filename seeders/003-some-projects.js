@@ -6,7 +6,6 @@ module.exports = {
       "projects",
       [
         {
-          id: 1,
           name: "Kiki whale",
           image:
             "https://i.etsystatic.com/18995061/r/il/dfaab8/3073672790/il_794xN.3073672790_nodo.jpg",
@@ -15,7 +14,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           name: "Tunisian bag",
           image:
             "https://images.squarespace-cdn.com/content/v1/5d29420ad44ef300017f39ac/1568212500630-H39IEZK7WTH53FPEYSPV/20190904_184402.jpg?format=1500w",
@@ -24,7 +22,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 3,
           name: "Duck Friends",
           image:
             "https://i.etsystatic.com/10279552/r/il/2d37bd/2263634754/il_570xN.2263634754_98yf.jpg",

@@ -6,7 +6,6 @@ module.exports = {
       "materials",
       [
         {
-          id: 1,
           name: "Ricorumi Yarn",
           color: "pink",
           weight: 1,
@@ -16,7 +15,6 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          id: 2,
           name: "Other Yarn",
           color: "blue",
           weight: 2,

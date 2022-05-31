@@ -1,14 +1,23 @@
-const { response } = require("express");
 const express = require("express");
+const cors = require("cors");
+
+// ROUTES
+const authRouter = require("./routers/auth");
+
+// MODELS
 const User = require("./models").user;
 const Project = require("./models").project;
 const Tool = require("./models").tool;
 const Material = require("./models").material;
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
+
 const PORT = 4000;
 
-app.use(express.json());
+app.use("/auth", authRouter);
 
 app.get("/test", async (request, response) => {
   try {
