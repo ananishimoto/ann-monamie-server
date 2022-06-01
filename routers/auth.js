@@ -1,13 +1,20 @@
+// AUTH AND HASH TOOLS
 const bcrypt = require("bcrypt");
-const { Router } = require("express");
-const { toJWT } = require("../auth/jwt");
-const authMiddleware = require("../auth/middleware");
-const User = require("../models/").user;
 const { SALT_ROUNDS } = require("../config/constants");
+const { toJWT } = require("../auth/jwt");
+
+// ROUTER
+const { Router } = require("express");
+
+// MIDDLEWARE
+const authMiddleware = require("../auth/middleware");
+
+// MODELS
+const User = require("../models/").user;
 
 const router = new Router();
 
-// Route to create a new user in the database
+// Create new user endpoint
 
 router.post("/signup", async (request, response) => {
   const { email, password, name } = request.body;
@@ -43,6 +50,8 @@ router.post("/signup", async (request, response) => {
   }
 });
 
+// Login endpoint
+
 router.post("/login", async (request, response, next) => {
   try {
     const { email, password } = request.body;
@@ -72,13 +81,16 @@ router.post("/login", async (request, response, next) => {
   }
 });
 
+// Keep token while loggedIn endopoint
+
+router.get("/me", authMiddleware, async (request, response) => {
+  // don't send back the password hash
+  delete request.user.dataValues["password"];
+  response.status(200).send({ ...request.user.dataValues });
+});
+
 // The /me endpoint can be used to:
 // - get the users email & name using only their token
 // - checking if a token is (still) valid
-// router.get("/me", authMiddleware, async (request, response) => {
-//   // don't send back the password hash
-//   delete reqest.user.dataValues["password"];
-//   res.status(200).send({ ...req.user.dataValues });
-// });
 
 module.exports = router;

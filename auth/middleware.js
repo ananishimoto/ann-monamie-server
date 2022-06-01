@@ -20,6 +20,7 @@ async function auth(request, response, next) {
     }
 
     request.user = user;
+    request.data = data;
 
     return next();
   } catch (error) {
