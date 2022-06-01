@@ -43,34 +43,34 @@ router.post("/signup", async (request, response) => {
   }
 });
 
-// router.post("/login", async (request, response, next) => {
-//   try {
-//     const { email, password } = request.body;
+router.post("/login", async (request, response, next) => {
+  try {
+    const { email, password } = request.body;
 
-//     if (!email || !password) {
-//       return response
-//         .status(400)
-//         .send({ message: "Please provide both email and password" });
-//     }
+    if (!email || !password) {
+      return response
+        .status(400)
+        .send({ message: "Please provide both email and password" });
+    }
 
-//     const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
-//     if (!user || !bcrypt.compareSync(password, user.password)) {
-//       return response.status(400).send({
-//         message: "User with that email not found or password incorrect",
-//       });
-//     }
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return response.status(400).send({
+        message: "User with that email not found or password incorrect",
+      });
+    }
 
-//     delete user.dataValues["password"]; // don't send back the password hash
-//     const token = toJWT({ userId: user.id });
-//     return response.status(200).send({ token, user: user.dataValues });
-//   } catch (error) {
-//     console.log(error);
-//     return response
-//       .status(400)
-//       .send({ message: "Something went wrong, sorry" });
-//   }
-// });
+    delete user.dataValues["password"]; // don't send back the password hash
+    const token = toJWT({ userId: user.id });
+    return response.status(200).send({ token, user: user.dataValues });
+  } catch (error) {
+    console.log(error);
+    return response
+      .status(400)
+      .send({ message: "Something went wrong, sorry" });
+  }
+});
 
 // The /me endpoint can be used to:
 // - get the users email & name using only their token
