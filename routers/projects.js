@@ -14,10 +14,22 @@ router.get("/", authMiddleware, async (request, response) => {
   try {
     const user = await User.findByPk(id, { include: { model: Projects } });
 
-    const projects = user.projects;
+    const projects = user.get({ plain: true }).projects;
+
+    // Separate different project objects/arrays by status
+
+    const byStatus = projects.reduce((accumulator, project) => {
+      const status = project.userProject.projectStatus;
+
+      if (accumulator[status]) {
+        return { ...accumulator, [status]: [...accumulator[status], project] };
+      } else {
+        return { ...accumulator, [status]: [project] };
+      }
+    }, {});
 
     delete user.dataValues.password;
-    response.status(200).send({ projects });
+    response.status(200).send({ projects: byStatus });
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: "Something went wrong, sorry" });
