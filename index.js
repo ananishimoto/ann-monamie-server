@@ -3,6 +3,7 @@ const cors = require("cors");
 
 // ROUTES
 const authRouter = require("./routers/auth");
+const projectRouter = require("./routers/projects");
 
 // MODELS
 const User = require("./models").user;
@@ -18,6 +19,7 @@ app.use(express.json());
 const PORT = 4000;
 
 app.use("/auth", authRouter);
+app.use("/projects", projectRouter);
 
 app.get("/test", async (request, response) => {
   try {
