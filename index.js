@@ -4,6 +4,7 @@ const cors = require("cors");
 // ROUTES
 const authRouter = require("./routers/auth");
 const projectRouter = require("./routers/projects");
+const materialsAndToolsRouter = require("./routers/materialsAndTools");
 
 // MODELS
 const User = require("./models").user;
@@ -20,6 +21,7 @@ const PORT = 4000;
 
 app.use("/auth", authRouter);
 app.use("/projects", projectRouter);
+app.use("/materials", materialsAndToolsRouter);
 
 app.get("/test", async (request, response) => {
   try {

@@ -4,6 +4,7 @@ const User = require("../models/").user;
 const Projects = require("../models/").project;
 const Tool = require("../models/").tool;
 const Material = require("../models/").material;
+const ProjectMaterial = require("../models").projectMaterial;
 
 const router = new Router();
 
@@ -44,7 +45,7 @@ router.get("/:id", authMiddleware, async (request, response) => {
   const { id } = request.params;
   const user = request.user;
   const userId = request.data.userId;
-  console.log("Is this the data I want", user);
+  // console.log("Is this the data I want", user);
   try {
     const user = await User.findByPk(userId, {
       include: {
@@ -67,20 +68,33 @@ router.get("/:id", authMiddleware, async (request, response) => {
 
 // Route to create a new project
 
-module.exports = router;
+router.post("/project/new", async (request, response) => {
+  const { name, tools, materials, pattern, image } = request.body;
+  if (!name || !tools || !materials || !pattern) {
+    return response.status(400).send("Please provide the needed information");
+  }
 
-// const users = await User.findByPk(1, {
-//   include: [
-//     {
-//       model: Project,
-//       include: [
-//         {
-//           model: Tool,
-//         },
-//         {
-//           model: Material,
-//         },
-//       ],
-//     },
-//   ],
-// });
+  try {
+    const newProject = await Projects.create({
+      name,
+      pattern,
+      image,
+    });
+
+    // const projectMaterials = await ProjectMaterial.create({});
+
+    // const projectMaterials = await ProjectMaterial.create({});
+
+    res.status(201).json({ token, user: newUser.dataValues, space: newSpace });
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res
+        .status(400)
+        .send({ message: "There is an existing account with this email" });
+    }
+
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+module.exports = router;
