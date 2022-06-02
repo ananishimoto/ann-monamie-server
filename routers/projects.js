@@ -36,4 +36,29 @@ router.get("/", authMiddleware, async (request, response) => {
   }
 });
 
+// Route to fetch a specific project
+
+router.get("/:id", authMiddleware, async (request, response) => {
+  const { id } = request.params;
+  const user = request.user;
+  const userId = request.data.userId;
+  console.log("Is this the data I want", user);
+  try {
+    const user = await User.findByPk(userId, {
+      include: { model: Projects, where: { id } },
+    });
+
+    // Separate only the projects from the user info
+    const details = user.get({ plain: true }).projects;
+
+    // delete user.dataValues.password;
+    response.status(200).send({ details });
+  } catch (error) {
+    console.log(error);
+    response.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+// Route to create a new project
+
 module.exports = router;
