@@ -5,6 +5,8 @@ const Projects = require("../models/").project;
 const Tool = require("../models/").tool;
 const Material = require("../models/").material;
 const ProjectMaterial = require("../models").projectMaterial;
+const ProjectTool = require("../models").projectTool;
+const UserProject = require("../models").userProject;
 
 const router = new Router();
 
@@ -68,32 +70,71 @@ router.get("/:id", authMiddleware, async (request, response) => {
 
 // Route to create a new project
 
-router.post("/project/new", async (request, response) => {
-  const { name, tools, materials, pattern, image } = request.body;
-  if (!name || !tools || !materials || !pattern) {
+router.post("/new", async (request, response) => {
+  // const userId = request.user.id
+  console.log("what do I have here?", request.body);
+  const { name, image, pattern, tools, materials } = request.body;
+  if (!name || !pattern) {
     return response.status(400).send("Please provide the needed information");
   }
 
+  console.log("What do I have tools", tools);
+  // const tools = [1, 2, 3]; // => [ {amount: 2, id: 1}, { amount: 4, id: 2}, {}]
+  // const materials = [1, 2];
+
   try {
+    //first create new project
     const newProject = await Projects.create({
       name,
-      pattern,
       image,
+      pattern,
     });
 
-    // const projectMaterials = await ProjectMaterial.create({});
+    console.log("new project", newProject);
 
-    // const projectMaterials = await ProjectMaterial.create({});
+    //associate this project with a user
+    const projectStatusUpdate = await UserProject.create({
+      userId: 1,
+      projectId: newProject.id,
+      timer: 0,
+      projectStatus: "Wishlist",
+    });
 
-    res.status(201).json({ token, user: newUser.dataValues, space: newSpace });
+    //add the tools for this project
+    const toolsArrayOfPromises = tools.map(async (tool) => {
+      const projectTools = await ProjectTool.create({
+        projectId: newProject.id,
+        toolId: tool,
+      });
+      return projectTools;
+    });
+    await Promise.all(toolsArrayOfPromises);
+
+    console.log("tools", toolsArrayOfPromises);
+
+    //add the materials for this project
+    const materialsArrayOfPromises = materials.map(async (material) => {
+      const projectMaterials = await ProjectMaterial.create({
+        projectId: newProject.id,
+        materialId: material,
+      });
+      return projectMaterials;
+    });
+    await Promise.all(materialsArrayOfPromises);
+
+    console.log("materials", materialsArrayOfPromises);
+
+    // response.status(201).send("worked?");
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
-      return res
+      return response
         .status(400)
-        .send({ message: "There is an existing account with this email" });
+        .send({ message: "There is an existing project with this name" });
     }
 
-    return res.status(400).send({ message: "Something went wrong, sorry" });
+    return response
+      .status(400)
+      .send({ message: "Something went wrong, sorry" });
   }
 });
 
