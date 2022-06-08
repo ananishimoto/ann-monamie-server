@@ -21,4 +21,22 @@ router.get("/", async (request, response) => {
   }
 });
 
+// Route to fetch details page without user logged in
+
+router.get("/:id", async (request, response) => {
+  const { id } = request.params;
+  try {
+    const detailsProject = await Projects.findByPk(id, {
+      include: [{ model: Tool }, { model: Material }],
+    });
+
+    response.status(200).send([detailsProject]);
+  } catch (error) {
+    console.log(error);
+    response
+      .status(500)
+      .send({ message: "Something wrong fetching details info" });
+  }
+});
+
 module.exports = router;
