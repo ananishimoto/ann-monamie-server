@@ -49,7 +49,6 @@ router.get("/:id", authMiddleware, async (request, response) => {
   const { id } = request.params;
   const user = request.user;
   const userId = request.data.userId;
-  // console.log("Is this the data I want", user);
   try {
     const user = await User.findByPk(userId, {
       include: {
@@ -72,9 +71,8 @@ router.get("/:id", authMiddleware, async (request, response) => {
 
 // Route to create a new project
 
-router.post("/new", async (request, response) => {
-  // const userId = request.user.id
-  // console.log("what do I have here?", request.body);
+router.post("/new", authMiddleware, async (request, response) => {
+  const userId = request.user.id;
   const { name, image, status, pattern, tools, materials } = request.body;
   if (!name || !pattern) {
     return response.status(400).send("Please provide the needed information");
@@ -96,7 +94,7 @@ router.post("/new", async (request, response) => {
 
     //associate this project with a user
     const projectStatusUpdate = await UserProject.create({
-      userId: 1,
+      userId,
       projectId: newProject.id,
       timer: 0,
       projectStatus: status,

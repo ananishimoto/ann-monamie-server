@@ -1,4 +1,5 @@
 const User = require("../models").user;
+const Project = require("../models").project;
 const { toData } = require("./jwt");
 
 async function auth(request, response, next) {
@@ -14,7 +15,9 @@ async function auth(request, response, next) {
 
   try {
     const data = toData(auth[1]);
-    const user = await User.findByPk(data.userId);
+    const user = await User.findByPk(data.userId, {
+      include: [{ model: Project, attributes: ["id"] }],
+    });
     if (!user) {
       return res.status(404).send({ message: "User does not exist" });
     }

@@ -11,6 +11,7 @@ const authMiddleware = require("../auth/middleware");
 
 // MODELS
 const User = require("../models/").user;
+const Project = require("../models").project;
 
 const router = new Router();
 
@@ -43,7 +44,9 @@ router.post("/signup", async (request, response) => {
 
     const token = toJWT({ userId: newUser.id });
 
-    response.status(201).json({ token, user: newUser });
+    response
+      .status(201)
+      .json({ token, user: { ...newUser.dataValues, projects: [] } });
   } catch (error) {
     console.log(error);
     response.status(500).send({ message: "Something went wrong, sorry" });
@@ -62,7 +65,10 @@ router.post("/login", async (request, response, next) => {
         .send({ message: "Please provide both email and password" });
     }
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+      include: [{ model: Project, attributes: ["id"] }],
+    });
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return response.status(400).send({
@@ -71,8 +77,13 @@ router.post("/login", async (request, response, next) => {
     }
 
     delete user.dataValues["password"]; // don't send back the password hash
+    const cleanUser = {
+      ...user.dataValues,
+      projects: user.dataValues.projects.map((p) => p.id),
+    };
+
     const token = toJWT({ userId: user.id });
-    return response.status(200).send({ token, user: user.dataValues });
+    return response.status(200).send({ token, user: cleanUser });
   } catch (error) {
     console.log(error);
     return response
@@ -86,7 +97,13 @@ router.post("/login", async (request, response, next) => {
 router.get("/me", authMiddleware, async (request, response) => {
   // don't send back the password hash
   delete request.user.dataValues["password"];
-  response.status(200).send({ ...request.user.dataValues });
+
+  const cleanUser = {
+    ...request.user.dataValues,
+    projects: request.user.dataValues.projects.map((p) => p.id),
+  };
+
+  response.status(200).send({ ...cleanUser });
 });
 
 // The /me endpoint can be used to:
