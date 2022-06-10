@@ -6,7 +6,7 @@ https://github.com/ananishimoto/ann-monamie-client
 
 ## Scripts
 
-- npm start: start servers at http://localhost:4000/
+- npm start: start servers at localhost:4000/
 
 ## Tecnlogies used
 
