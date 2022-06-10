@@ -1,6 +1,6 @@
-# Ann Monamie Server code
+# Ann Monamie Server
 
-This is the file with the routes and Database relations for Ann Monamie Client project. Check the full read me on this link:
+This is the file with the routes and Database relations/seeders for Ann Monamie Client project. Check the full description on this link:
 
 https://github.com/ananishimoto/ann-monamie-client
 
