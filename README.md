@@ -4,6 +4,10 @@ This is the file with the routes and Database relations/seeders for Ann Monamie 
 
 https://github.com/ananishimoto/ann-monamie-client
 
+## Scripts
+
+- npm start: start servers at http://localhost:4000/
+
 ## Tecnlogies used
 
 Express, Sequelize, ElephantSQL to hosts Database instances, REST API and NodeJS.
