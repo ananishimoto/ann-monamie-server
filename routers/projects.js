@@ -78,7 +78,6 @@ router.post("/new", authMiddleware, async (request, response) => {
     return response.status(400).send("Please provide the needed information");
   }
 
-  // console.log("What do I have tools", tools);
   // const tools = [1, 2, 3]; // => [ {amount: 2, id: 1}, { amount: 4, id: 2}, {}]
   // const materials = [1, 2];
 
@@ -89,8 +88,6 @@ router.post("/new", authMiddleware, async (request, response) => {
       image,
       pattern,
     });
-
-    // console.log("new project", newProject);
 
     //associate this project with a user
     const projectStatusUpdate = await UserProject.create({
@@ -110,8 +107,6 @@ router.post("/new", authMiddleware, async (request, response) => {
     });
     await Promise.all(toolsArrayOfPromises);
 
-    // console.log("tools", toolsArrayOfPromises);
-
     //add the materials for this project
     const materialsArrayOfPromises = materials.map(async (material) => {
       const projectMaterials = await ProjectMaterial.create({
@@ -122,11 +117,9 @@ router.post("/new", authMiddleware, async (request, response) => {
     });
     await Promise.all(materialsArrayOfPromises);
 
-    // console.log("materials", materialsArrayOfPromises);
-
     projectId = newProject.id;
-    // console.log("project id", projectId);
-    response.status(201).send(projectId);
+    // console.log("Is this the Id", projectId);
+    response.status(201).send({ projectId });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return response
